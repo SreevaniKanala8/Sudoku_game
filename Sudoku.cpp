@@ -1,10 +1,5 @@
 // sudoku.cpp
-#include "sudoku.h"
-#include <cstdlib>
-#include <ctime>
-#include <algorithm>
-#include <cmath>
-#include <iostream>
+#include "Sudoku.h"
 
 Sudoku::Sudoku()
 {
@@ -240,7 +235,14 @@ void Sudoku::setUserInput(int row, int col, int num)
             std::cout << "Invalid number! Please enter a different number." << std::endl;
             return;
         }
-        grid[row][col] = num;
+        if (grid[row][col] == 0)
+        {
+            grid[row][col] = num;
+        }
+        else
+        {
+            std::cout << "Invalid input! Number already exist in the position. Please provide valid row & column" << std::endl;
+        }
     }
     else
     {
@@ -322,3 +324,44 @@ bool Sudoku::isNumberPresentInSubgrid(int row, int col, int num)
     }
     return false;
 }
+
+bool Sudoku::isPuzzleSolved()
+{
+    // Check if every cell is filled and each number is valid in its row, column, and subgrid
+    for (int i = 0; i < grid.size(); ++i)
+    {
+        for (int j = 0; j < grid[i].size(); ++j)
+        {
+            // If any cell is empty or its number is not valid, the puzzle is not solved
+            if (grid[i][j] == 0 || !isNumberValidForCell(i, j, grid[i][j]))
+            {
+                return false;
+            }
+        }
+    }
+    return true; // If all cells are filled and each number is valid, the puzzle is solved
+}
+
+/*
+int main()
+{
+    Sudoku sudoku;
+    sudoku.generatePuzzle();
+    std::cout << "Generated Sudoku Puzzle:" << std::endl;
+    sudoku.printGrid();
+    std::cout << std::endl;
+
+    int row, col, num;
+    while (!sudoku.isPuzzleComplete())
+    {
+        std::cout << "Enter row, column, and number (0-5) to fill in the Sudoku puzzle (Example: 0 0 5): ";
+        std::cin >> row >> col >> num;
+        sudoku.setUserInput(row, col, num);
+        std::cout << "Updated Sudoku Puzzle:" << std::endl;
+        sudoku.printGrid();
+    }
+
+    std::cout << "Congratulations! You solved the Sudoku puzzle." << std::endl;
+    return 0;
+}
+*/

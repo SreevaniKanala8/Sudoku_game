@@ -2,13 +2,17 @@
 #ifndef SUDOKU_H
 #define SUDOKU_H
 
+#include <cstdlib>
+#include <ctime>
+#include <algorithm>
+#include <cmath>
 #include <iostream>
 #include <vector>
 #include <chrono>
 
 class Sudoku
 {
-private:
+public:
     std::vector<std::vector<int>> grid;
     std::chrono::steady_clock::time_point startTime;
     bool isSafe(int row, int col, int num);
@@ -22,7 +26,7 @@ private:
     bool isNumberPresentInSubgrid(int row, int col, int num);
     void printGridLine();
 
-public:
+
     Sudoku();
     void generatePuzzle();
     void printGrid();
@@ -34,6 +38,7 @@ public:
     void startTimer();
     void stopTimer();
     double getElapsedTime();
+    
 };
 
 #endif
